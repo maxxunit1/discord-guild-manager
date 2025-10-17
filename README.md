@@ -1,11 +1,11 @@
 # Discord Guild Manager
 
-⚡ **One-click launcher** - No Python knowledge required
-🧹 **Clean up cluttered accounts** - Leave 100+ servers in minutes
-✅ **Token validation** - Check which accounts are still active
-📊 **CSV export** - All your servers in one spreadsheet
-🔒 **Proxy support** - Stay safe with proxy rotation
-🚀 **Production-ready** - Error handling, logging, retry logic
+- ⚡ **One-click launcher** - No Python knowledge required
+- 🧹 **Clean up cluttered accounts** - Leave 100+ servers in minutes
+- ✅ **Token validation** - Check which accounts are still active
+- 📊 **CSV export** - All your servers in one spreadsheet
+- 🔒 **Proxy support** - Stay safe with proxy rotation
+- 🚀 **Production-ready** - Error handling, logging, retry logic
 
 Perfect for:
 - Managing 2-3 Discord accounts (main + alts)
@@ -131,3 +131,4 @@ The launcher handles everything:
 3. Run option 3
 
 4. Results: Detailed report in console
+
