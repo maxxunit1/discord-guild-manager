@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  discord-guild-manager:
+    build: .
+    container_name: discord-guild-manager
+    environment:
+      - START_LINE=${START_LINE:-1}
+      - END_LINE=${END_LINE:-9999}
+      - THREAD_COUNT=${THREAD_COUNT:-3}
+      - RANDOM_START=${RANDOM_START:-False}
+      - ACCOUNT_DELAY_MIN=${ACCOUNT_DELAY_MIN:-1}
+      - ACCOUNT_DELAY_MAX=${ACCOUNT_DELAY_MAX:-5}
+      - DISCORD_REQUEST_DELAY_MIN=${DISCORD_REQUEST_DELAY_MIN:-5}
+      - DISCORD_REQUEST_DELAY_MAX=${DISCORD_REQUEST_DELAY_MAX:-10}
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./.env:/app/.env
+    stdin_open: true
+    tty: true
+    command: python main.py
