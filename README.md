@@ -1,3 +1,19 @@
+# Discord Guild Manager
+
+⚡ **One-click launcher** - No Python knowledge required
+🧹 **Clean up cluttered accounts** - Leave 100+ servers in minutes
+✅ **Token validation** - Check which accounts are still active
+📊 **CSV export** - All your servers in one spreadsheet
+🔒 **Proxy support** - Stay safe with proxy rotation
+🚀 **Production-ready** - Error handling, logging, retry logic
+
+Perfect for:
+- Managing 2-3 Discord accounts (main + alts)
+- Spring cleaning dead/spam servers
+- Token validation after long breaks
+- Organizing servers across accounts
+- Bot developers testing environments
+
 ## 📧 Installation
 
 ### Quick Start (Recommended)
@@ -113,4 +129,5 @@ The launcher handles everything:
 1. First run option 2 to collect guilds
 2. Edit `data/guilds_leave.txt` - add guild names or IDs
 3. Run option 3
+
 4. Results: Detailed report in console
