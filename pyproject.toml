@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "discord-guild-manager"
+version = "1.0.0"
+description = "Simple and powerful tool for managing Discord guilds across multiple accounts"
+readme = "README.md"
+authors = [
+    {name = "maxxunit1", email = ""},
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Communications :: Chat",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["discord", "guild", "automation", "bot", "management"]
+dependencies = [
+    "aiohttp>=3.11.0",
+    "certifi>=2024.0.0",
+    "python-dotenv>=1.0.0",
+    "colorlog>=6.8.0",
+]
+requires-python = ">=3.8"
+
+[project.urls]
+Homepage = "https://github.com/maxxunit1/discord-guild-manager"
+Documentation = "https://github.com/maxxunit1/discord-guild-manager#readme"
+Repository = "https://github.com/maxxunit1/discord-guild-manager.git"
+"Bug Tracker" = "https://github.com/maxxunit1/discord-guild-manager/issues"
+
+[project.scripts]
+discord-guild-manager = "main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
+exclude = ["data*", "output*", "tests*", "docs*"]
+
+[tool.black]
+line-length = 120
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | \.env
+  | build
+  | dist
+  | data
+  | output
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.flake8]
+max-line-length = 120
+exclude = [".git", "__pycache__", "build", "dist", "venv", ".venv", "data", "output"]
+ignore = ["E501", "W503", "E203"]
