@@ -1,0 +1,7 @@
+# This file ensures the data folder is tracked by Git
+# Place your data files here:
+# - account_indexes.txt
+# - ds_tokens.txt
+# - user_agents.txt
+# - proxies.txt
+# - guilds_leave.txt

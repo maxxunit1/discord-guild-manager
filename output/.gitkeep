@@ -1,0 +1,7 @@
+# This file ensures the output folder is tracked by Git
+# All script outputs will be saved here:
+# - guilds_all.csv
+# - guilds_{id}.csv
+# - valid_tokens.txt
+# - invalid_tokens.txt
+# - leave_stats_{id}.json
