@@ -1,0 +1,6 @@
+# This is a comment - it will be ignored
+My Test Server
+Another Server Name
+123456789012345678
+987654321098765432
+Gaming Community

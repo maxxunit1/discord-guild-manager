@@ -1,0 +1,3 @@
+192.168.1.100:8080:user1:password123
+10.0.0.50:3128:proxyuser:proxypass456
+proxy.example.com:1080:myuser:mypassword
