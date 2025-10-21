@@ -1,7 +1,7 @@
 # Discord Guild Manager
 
-**Full guide with images** - https://x.com/2maxdmn4/status/1980479928174092427
-**How to find your Discord account token** - https://x.com/2maxdmn4/status/1980483000736559133
+- **Full guide with images** - https://x.com/2maxdmn4/status/1980479928174092427
+- **How to find your Discord account token** - https://x.com/2maxdmn4/status/1980483000736559133
 
 - ⚡ **One-click launcher** - No Python knowledge required
 - 🧹 **Clean up cluttered accounts** - Leave 100+ servers in minutes
@@ -134,5 +134,6 @@ The launcher handles everything:
 3. Run option 3
 
 4. Results: Detailed report in console
+
 
 
