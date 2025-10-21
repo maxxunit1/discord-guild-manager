@@ -699,6 +699,53 @@ async def handle_guilds(profile: dict, mode: str, leave_list_path: str = GUILDS_
         logger.info(f"{identifier}: Successful: {successful_leaves}")
         logger.info(f"{identifier}: Failed: {failed_leaves}")
 
+        # TODO --- СОХРАНЕНИЕ ИНДИВИДУАЛЬНОЙ СТАТИСТИКИ В CSV ---
+        # Save individual profile statistics to CSV file
+        try:
+            stats_file = f"output/leave_stats_{identifier}.csv"
+
+            with open(stats_file, "w", newline="", encoding="utf-8-sig") as f:
+                writer = csv.writer(f, delimiter=';')
+
+                # Header
+                writer.writerow(["#", "Guild Name", "Guild ID", "Status", "Error Reason"])
+
+                # Write data for each guild
+                for idx, guild in enumerate(to_leave_guilds, 1):
+                    guild_name = guild["name"]
+                    guild_id = guild["id"]
+
+                    # Determine status for this guild
+                    profile_num = int(identifier) if identifier.isdigit() else 0
+
+                    if guild_name in leave_results:
+                        if profile_num in leave_results[guild_name]["success_profiles"]:
+                            status = "✅ Success"
+                            error = "-"
+                        elif profile_num in leave_results[guild_name]["failed_profiles"]:
+                            status = "❌ Failed"
+                            error = leave_results[guild_name]["failed_profiles"][profile_num]
+                        else:
+                            status = "⚠️ Unknown"
+                            error = "No data"
+                    else:
+                        status = "⚠️ Unknown"
+                        error = "No data"
+
+                    writer.writerow([
+                        idx,
+                        guild_name,
+                        f"'{guild_id}",  # Add apostrophe for Excel
+                        status,
+                        error
+                    ])
+
+            abs_path = os.path.abspath(stats_file)
+            logger.info(f"{identifier}: 💾 Individual stats saved to {abs_path}")
+
+        except Exception as e:
+            logger.error(f"{identifier}: ❌ Failed to save individual stats: {e}")
+
 
 def print_final_report():
     """Print detailed final statistics report"""
@@ -747,6 +794,7 @@ def print_final_report():
     # Leave operations summary (show if we performed any leave operations)
     if leave_results:
         print_leave_report()
+        save_leave_results_to_csv()
 
     # Warnings
     if stats['proxy_failed'] > 0:
@@ -872,6 +920,67 @@ def print_leave_report():
             logger.info("")
 
     logger.info("=" * 60)
+
+
+def save_leave_results_to_csv():
+    """
+    Save leave operation results to CSV file in output folder.
+    Creates a summary with guild names, IDs, and which accounts succeeded/failed.
+    """
+    if not leave_results:
+        logger.info("No leave results to save")
+        return
+
+    output_file = "output/leave_results_summary.csv"
+
+    try:
+        with open(output_file, "w", newline="", encoding="utf-8-sig") as f:
+            writer = csv.writer(f, delimiter=';')
+            # Header
+            writer.writerow(["#", "Guild Name", "Guild ID", "Total Accounts", "Successful", "Failed", "Success Rate %",
+                             "Failed Accounts", "Error Reasons"])
+
+            # Sort guilds by name
+            sorted_guilds = sorted(leave_results.items())
+
+            for idx, (guild_name, results) in enumerate(sorted_guilds, 1):
+                guild_id = results["id"]
+                success_profiles = results["success_profiles"]
+                failed_profiles = results["failed_profiles"]
+
+                success_count = len(success_profiles)
+                failed_count = len(failed_profiles)
+                total_count = success_count + failed_count
+
+                success_rate = (success_count / total_count * 100) if total_count > 0 else 0
+
+                # Format failed accounts list
+                failed_accounts_list = ", ".join(
+                    str(p) for p in sorted(failed_profiles.keys())) if failed_profiles else "-"
+
+                # Collect unique error reasons
+                error_reasons = set(failed_profiles.values()) if failed_profiles else set()
+                error_reasons_str = " | ".join(error_reasons) if error_reasons else "-"
+
+                writer.writerow([
+                    idx,
+                    guild_name,
+                    guild_id,  # No apostrophe - easier to copy
+                    total_count,
+                    success_count,
+                    failed_count,
+                    f"{success_rate:.1f}",
+                    failed_accounts_list,
+                    error_reasons_str
+                ])
+
+        abs_path = os.path.abspath(output_file)
+        logger.info(f"")
+        logger.info(f"💾 Saved leave summary to: {abs_path}")
+        logger.info(f"📊 Total guilds processed: {len(leave_results)}")
+
+    except Exception as e:
+        logger.error(f"❌ Failed to save leave results to CSV: {e}")
 
 
 def _print_guild_failure_details(guild_name: str, results: dict):
